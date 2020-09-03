@@ -22,6 +22,10 @@ class QuizActivity : AppCompatActivity() {
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
         updateView()
+
+        binding.btnSubmit.setOnClickListener {
+            checkInputFields()
+        }
     }
 
     private enum class ConjunctionLetters {
@@ -49,21 +53,80 @@ class QuizActivity : AppCompatActivity() {
 
     private fun updateView() {
         updateQuestions()
-        binding.lblQuestionOne.text = getString(R.string.ConjunctionView_question_label_one, lblQuestionOne)
-        binding.lblQuestionTwo.text = getString(R.string.ConjunctionView_question_label_two, lblQuestionTwo)
-        binding.lblQuestionThree.text = getString(R.string.ConjunctionView_question_label_three, lblQuestionThree)
-        binding.lblQuestionFour.text = getString(R.string.ConjunctionView_question_label_four, lblQuestionFour)
-        binding.lblQuestionFive.text = getString(R.string.ConjunctionView_question_label_five, lblQuestionFive)
-        binding.lblQuestionSix.text = getString(R.string.ConjunctionView_question_label_six, lblQuestionSix)
-        binding.lblQuestionSeven.text = getString(R.string.ConjunctionView_question_label_seven, lblQuestionSeven)
-        binding.lblQuestionEight.text = getString(R.string.ConjunctionView_question_label_eight, lblQuestionEight)
+        binding.lblQuestionOne.text =
+            getString(R.string.ConjunctionView_question_label_one, lblQuestionOne)
+        binding.lblQuestionTwo.text =
+            getString(R.string.ConjunctionView_question_label_two, lblQuestionTwo)
+        binding.lblQuestionThree.text =
+            getString(R.string.ConjunctionView_question_label_three, lblQuestionThree)
+        binding.lblQuestionFour.text =
+            getString(R.string.ConjunctionView_question_label_four, lblQuestionFour)
+        binding.lblQuestionFive.text =
+            getString(R.string.ConjunctionView_question_label_five, lblQuestionFive)
+        binding.lblQuestionSix.text =
+            getString(R.string.ConjunctionView_question_label_six, lblQuestionSix)
+        binding.lblQuestionSeven.text =
+            getString(R.string.ConjunctionView_question_label_seven, lblQuestionSeven)
+        binding.lblQuestionEight.text =
+            getString(R.string.ConjunctionView_question_label_eight, lblQuestionEight)
+
+        binding.txtFieldAnswerOne.text.clear()
+        binding.txtFieldAnswerTwo.text.clear()
+        binding.txtFieldAnswerThree.text.clear()
+        binding.txtFieldAnswerFour.text.clear()
     }
 
-    private fun onAnswerCorrect(){
-        Toast.makeText(this,getString(R.string.ConjunctionView_answer_correct), Toast.LENGTH_SHORT).show()
+    private fun checkInputFields() {
+        val txtFieldOne = binding.txtFieldAnswerOne.text.toString()
+        val txtFieldTwo = binding.txtFieldAnswerTwo.text.toString()
+        val txtFieldThree = binding.txtFieldAnswerThree.text.toString()
+        val txtFieldFour = binding.txtFieldAnswerFour.text.toString()
+
+        if (checkCorrectAnswers(
+                lblQuestionOne,
+                lblQuestionTwo,
+                txtFieldOne
+            ) && checkCorrectAnswers(lblQuestionOne, lblQuestionTwo, txtFieldOne) &&
+            checkCorrectAnswers(lblQuestionOne, lblQuestionTwo, txtFieldTwo) &&
+            checkCorrectAnswers(lblQuestionOne, lblQuestionTwo, txtFieldThree) &&
+            checkCorrectAnswers(lblQuestionOne, lblQuestionTwo, txtFieldFour)
+        ) onAnswerCorrect()
+        else onAnswerInCorrect()
+
     }
 
-    private fun onAnswerInCorrect(){
-        Toast.makeText(this,getString(R.string.ConjunctionView_answer_incorrect), Toast.LENGTH_SHORT).show()
+    private fun checkCorrectAnswers(
+        valueOne: String,
+        valueTwo: String,
+        userAnswer: String
+    ): Boolean {
+        if (valueOne == ConjunctionLetters.T.toString() &&
+            valueTwo == ConjunctionLetters.T.toString() &&
+            userAnswer == ConjunctionLetters.T.toString() ||
+            valueOne == ConjunctionLetters.T.toString() &&
+            valueTwo == ConjunctionLetters.F.toString() &&
+            userAnswer == ConjunctionLetters.F.toString() ||
+            valueOne == ConjunctionLetters.F.toString() &&
+            valueTwo == ConjunctionLetters.T.toString() &&
+            userAnswer == ConjunctionLetters.F.toString() ||
+            valueOne == ConjunctionLetters.F.toString() &&
+            valueTwo == ConjunctionLetters.F.toString() &&
+            userAnswer == ConjunctionLetters.F.toString()
+        ) return true
+        return false
+    }
+
+    private fun onAnswerCorrect() {
+        Toast.makeText(this, getString(R.string.ConjunctionView_answer_correct), Toast.LENGTH_SHORT)
+            .show()
+        updateView()
+    }
+
+    private fun onAnswerInCorrect() {
+        Toast.makeText(
+            this,
+            getString(R.string.ConjunctionView_answer_incorrect),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
