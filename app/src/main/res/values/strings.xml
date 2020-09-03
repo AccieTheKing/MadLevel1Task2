@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">MadLevel1Task2</string>
-    <string name="screen_title">Conjuction (AND)</string>
+    <string name="ConjuctionView_screen_title">Conjuction (AND)</string>
+    <string name="ConjuctionView_title_left">A</string>
+    <string name="ConjuctionView_title_center">B</string>
+    <string name="ConjuctionView_title_right">A ^ B</string>
+    <string name="ConjuctionView_question_label_one">%s</string>
+    <string name="ConjuctionView_question_label_two">%s</string>
+    <string name="ConjuctionView_question_label_three">%s</string>
+    <string name="ConjuctionView_question_label_four">%s</string>
+    <string name="ConjuctionView_question_label_five">%s</string>
+    <string name="ConjuctionView_question_label_six">%s</string>
+    <string name="ConjuctionView_question_label_seven">%s</string>
+    <string name="ConjuctionView_question_label_eight">%s</string>
+    <string name="ConjuctionView_submit_button">SUBMIT</string>
 </resources>
